@@ -1,4 +1,4 @@
-name: ci
+name: cicd
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
       - main
 
 jobs:
-  docker:
-    runs-on: self-hosted
+  ci:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,3 +39,18 @@ jobs:
         with:
           push: true
           tags: gokhangurbuz/python-app:${{ env.COMMIT_ID }}
+  
+  cd:
+    needs: ci
+    runs-on: self-hosted
+    steps:
+
+      - name: ArgoCd app sync
+        shell: bash
+        run: |
+          argocd login argocd.roofstacks.com:8443 \
+          --insecure \
+          --grpc-web \
+          -u admin \
+          -p ${{ secrets.ARGOCD_PASSWORD }} && \
+          argocd app sync my-app
