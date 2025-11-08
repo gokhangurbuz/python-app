@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: gokhangurbuz/python-app
   pullPolicy: IfNotPresent
-  tag: v2
+  tag: c323b2a
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -28,42 +28,19 @@ ingress:
         - path: /
           pathType: Prefix
   tls: []
-
 httpRoute:
-  # HTTPRoute enabled.
   enabled: false
-  # HTTPRoute annotations.
   annotations: {}
-  # Which Gateways this Route is attached to.
   parentRefs:
-  - name: gateway
-    sectionName: http
-    # namespace: default
-  # Hostnames matching HTTP header.
+    - name: gateway
+      sectionName: http
   hostnames:
-  - chart-example.local
-  # List of rules and filters applied.
+    - chart-example.local
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /headers
-  #   filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #       - name: My-Overwrite-Header
-  #         value: this-is-the-only-value
-  #       remove:
-  #       - User-Agent
-  # - matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /echo
-  #     headers:
-  #     - name: version
-  #       value: v2
-
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /headers
 resources:
   requests:
     cpu: 50m
