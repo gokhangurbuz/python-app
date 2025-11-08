@@ -54,7 +54,7 @@ jobs:
       - name: ArgoCd app sync
         shell: bash
         run: |
-          argocd login argocd.roofstacks.com:8443 \
+          argocd login argocd-server.argocd \
           --insecure \
           --grpc-web \
           -u admin \
