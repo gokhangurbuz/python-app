@@ -11,7 +11,7 @@ def info():
     return jsonify(
         hostName=socket.gethostname(),
         currentTime=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        message='You are doing great! :) ...',
+        message='You are doing great! :3',
         deployed_on='kubernetes'), 200
 
 @app.route('/api/v1/healthz')
