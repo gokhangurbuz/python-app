@@ -47,14 +47,15 @@ jobs:
       - name: Install ArgoCD CLI
         shell: bash
         run: |
-          curl -ksSL -o argocd https://argocd-server.argocd/downloads/argocd-linux-amd64
-          chmod +x argocd
+          curl -ksSL -o /usr/local/bin/argocd https://argocd-server.argocd/downloads/argocd-linux-amd64
+          chmod +x /usr/local/bin/argocd
           sudo mv ./argocd /usr/local/bin/argocd
+          /usr/local/bin/argocd version --client
 
       - name: ArgoCd app sync
         shell: bash
         run: |
-          argocd login argocd-server.argocd:8081 \
+          argocd login argocd-server.argocd \
           --insecure \
           --grpc-web \
           -u admin \
